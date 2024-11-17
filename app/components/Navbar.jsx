@@ -1,10 +1,30 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
     return (
-        <nav className="flex justify-between items-center bg-slate-800 px-8 py-3"> 
-        <Link className="text-white font-bold" href={"/"}>Dinesha's Blog.</Link>
-        <Link className="bg-white p-2" href={"/addTopic"}>Add a Topic</Link>
+        <nav className="flex justify-between items-center px-8 py-3" style={{ backgroundColor: "#060f1b" }}>
+            <div className="flex items-center space-x-4 px-0 py-0">
+                <Image 
+                    src="/images/dineshalogo.jpg" 
+                    alt="Logo" 
+                    width={100} 
+                    height={30} 
+                    className=" border-0"
+                />
+                <Link 
+                    className="font-bold italic text-2xl hover:text-gray-400" 
+                    href={"/"}
+                    style={{ color: "#29637f" }} // Custom color for Blog text
+                >
+                    's Blog.
+                </Link>
+            </div>
+            <Link className=" border-4 border-[#29637f] text-[#29637f] p-2 rounded hover:bg-gray-200" style={{ backgroundColor: "#060f1b"}}href={"/addTopic"}>
+                Add a Topic
+            </Link>
         </nav>
-    )
-} // NavBar
+    );
+}
+
+// NavBar
