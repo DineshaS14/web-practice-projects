@@ -11,7 +11,7 @@ export default function EditTopic() {
         type="text"
         placeholder="Topic Description"
         />
-        <button className="bg-blue-500 font-bold text-white py-3 px-6 w-fit">Update This Topic</button>
+        <button className="border-4 border-[#29637f] bg-[#060f1b] font-bold text-[#29637f] py-3 px-6 w-fit">Update This Topic</button>
     </form>
         </div>
     );
