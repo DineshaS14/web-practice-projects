@@ -5,7 +5,7 @@ import { HiPencilAlt } from "react-icons/hi";
 // function to pull topics from MongoDB
 const getTopics = async () => {
     try {
-        const res = await fetch("http://localhost:3003/api/topics", {
+        const res = await fetch("http://localhost:3004/api/topics", {
             cache: "no-store",
         });
         if (!res.ok) {
@@ -24,11 +24,11 @@ export default async function TopicList() {
     return (
         <>
         {topics.map((t) => (
-        <div key={t.id}
-        className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start">
+        <div key={t._id}
+        className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start hover:border-slate-500">
             <div>
-                <h2 className="font-bold text-2xl">{t.title}</h2>
-                <div>
+                <h2 className="font-bold text-2xl hover:text-red-500">{t.title}</h2>
+                <div className="hover:text-2xl">
                     {t.description}
                 </div>
             </div>

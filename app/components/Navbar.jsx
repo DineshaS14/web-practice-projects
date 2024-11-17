@@ -20,7 +20,7 @@ export default function Navbar() {
                     's Blog.
                 </Link>
             </div>
-            <Link className=" border-4 border-[#29637f] text-[#29637f] p-2 rounded hover:bg-gray-200" style={{ backgroundColor: "#060f1b"}}href={"/addTopic"}>
+            <Link className=" border-4 border-[#29637f] text-[#29637f] p-2 rounded hover:bg-gray-200 hover:text-red-500" style={{ backgroundColor: "#060f1b"}}href={"/addTopic"}>
                 Add a Topic
             </Link>
         </nav>

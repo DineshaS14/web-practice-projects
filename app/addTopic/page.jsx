@@ -16,7 +16,7 @@ export default function AddTopic() {
             return;
         } // if no title and description  while submitting, alerts the user.
         try {
-            const res = await fetch("http://localhost:3003/api/topics", {
+            const res = await fetch("http://localhost:3004/api/topics", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
