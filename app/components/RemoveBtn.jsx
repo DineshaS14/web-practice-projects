@@ -1,17 +1,15 @@
 "use client";
-
 import { HiOutlineTrash } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { useState, useCallback } from "react";
 
-export default function RemoveBtn({ id }) {
+export default function RemoveBtn({ id, onDelete }) {
     const router = useRouter();
     const [isDeleting, setIsDeleting] = useState(false);
 
-    // Debounced delete handler
     const removeTopic = useCallback(async () => {
-        if (isDeleting) return; // Prevent multiple clicks
-
+        if (isDeleting) return;
+        
         try {
             setIsDeleting(true);
             const confirmed = confirm('Are you sure you want to delete this topic?');
@@ -29,6 +27,9 @@ export default function RemoveBtn({ id }) {
             });
 
             if (res.ok) {
+                // Call the onDelete callback to trigger local state update
+                onDelete(id);
+                // Still refresh the router to ensure server-state consistency
                 router.refresh();
             } else {
                 throw new Error('Failed to delete topic');
@@ -39,7 +40,7 @@ export default function RemoveBtn({ id }) {
         } finally {
             setIsDeleting(false);
         }
-    }, [id, router, isDeleting]);
+    }, [id, router, isDeleting, onDelete]);
 
     return (
         <button
