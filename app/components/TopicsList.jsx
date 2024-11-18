@@ -14,6 +14,7 @@ export default function TopicsList() {
                 setTopics(data);
             } catch (error) {
                 console.error('Error fetching topics:', error);
+                setTopics([]); // or some default value
             }
         };
 
@@ -29,7 +30,7 @@ export default function TopicsList() {
 
     return (
         <div className="grid gap-4">
-            {topics.map((topic) => (
+            {topics?.map((topic) => (
                 <div key={topic._id} className="p-4 border rounded-lg shadow-sm">
                     <div className="flex items-center justify-between">
                         <h2 className="text-xl font-semibold">{topic.title}</h2>

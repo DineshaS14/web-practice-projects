@@ -1,36 +1,33 @@
-"use client";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { useState, useCallback } from "react";
 
 export default function RemoveBtn({ id, onDelete }) {
     const router = useRouter();
-    const [isDeleting, setIsDeleting] = useState(false);
+    const [isDeletionInProgress, setIsDeletionInProgress] = useState(false);
 
     const removeTopic = useCallback(async () => {
-        if (isDeleting) return;
-        
+        if (isDeletionInProgress) return;
+        console.log(isDeletionInProgress);
         try {
-            setIsDeleting(true);
+            setIsDeletionInProgress(true);
             const confirmed = confirm('Are you sure you want to delete this topic?');
-            
+
             if (!confirmed) {
-                setIsDeleting(false);
+                setIsDeletionInProgress(false);
                 return;
             }
-
-            const res = await fetch(`/api/topics?id=${id}`, {
+            console.log("sadhaskdgkadgkj");
+            const response = await fetch(`/api/topics?id=${id}`, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-
-            if (res.ok) {
-                // Call the onDelete callback to trigger local state update
-                onDelete(id);
-                // Still refresh the router to ensure server-state consistency
-                router.refresh();
+            console.log("sadhaskdgkadgkj");
+            if (response.ok) {
+                onDelete(id); // Call onDelete callback
+                router.reload(); // Simplified navigation update
             } else {
                 throw new Error('Failed to delete topic');
             }
@@ -38,14 +35,14 @@ export default function RemoveBtn({ id, onDelete }) {
             console.error('Error deleting topic:', error);
             alert('Failed to delete topic');
         } finally {
-            setIsDeleting(false);
+            setIsDeletionInProgress(false);
         }
-    }, [id, router, isDeleting, onDelete]);
+    }, [id, router, isDeletionInProgress, onDelete]);
 
     return (
         <button
             onClick={removeTopic}
-            disabled={isDeleting}
+            disabled={isDeletionInProgress}
             className={`
                 text-red-400 
                 transition-colors 
@@ -65,9 +62,9 @@ export default function RemoveBtn({ id, onDelete }) {
             <HiOutlineTrash 
                 size={24} 
                 className={`transform transition-transform duration-200 ${
-                    isDeleting ? 'animate-pulse' : 'hover:scale-110'
+                    isDeletionInProgress ? 'animate-pulse' : 'hover:scale-110'
                 }`}
             />
         </button>
     );
-}// RemoveBtn
+}

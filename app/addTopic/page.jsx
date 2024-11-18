@@ -23,6 +23,7 @@ export default function AddTopic() {
                 },
                 body: JSON.stringify({ title, description}),
             });
+            console.log(res.stringify);
             // if successful adding, we go to the mainpage using Router.
             if (res.ok) {
                 router.push('/');
