@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectMongoDB from "@/app/libs/mongodb"; // Correctly import the MongoDB connection
-import Topic from "@../models/Topic"; // Ensure correct path to your Topic model
+import Topic from "@/app/models/topic";
 
 
 

@@ -17,7 +17,7 @@ export default function Navbar() {
                     href={"/"}
                     style={{ color: "#29637f" }} // Custom color for Blog text
                 >
-                    's Blog.
+                    &#39;s Blog.
                 </Link>
             </div>
             <Link className=" border-4 border-[#29637f] text-[#29637f] p-2 rounded hover:bg-gray-200 hover:text-red-500" style={{ backgroundColor: "#060f1b"}}href={"/addTopic"}>

@@ -1,46 +1,64 @@
+'use client';
+
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import { HiPencilAlt } from "react-icons/hi";
+import { useEffect, useState } from "react";
 
-// function to pull topics from MongoDB
-const getTopics = async () => {
-    try {
-        const res = await fetch("http://localhost:3000/api/topics", {
-            cache: "no-store",
-        });
-        if (!res.ok) {
-            throw new Error("Failed to getch topics");
-        } // if
-    return res.json();
-    } catch (error) {
-        console.log("Error loading topics: ", error);
-    }
-};
-// async function if when called its await.
+export default function TopicsList() {
+    const [topics, setTopics] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-export default async function TopicList() {
-    // destructure getTopics using const topics.
-    const { topics } = await getTopics();
+    useEffect(() => {
+        const fetchTopics = async () => {
+            try {
+                const res = await fetch('/api/topics');
+                if (!res.ok) {
+                    throw new Error('Failed to fetch topics');
+                }
+                const data = await res.json();
+                setTopics(data.topics);
+                setError(null);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTopics();
+    }, []);
+
+    if (error) return <div>Error: {error}</div>;
+    if (loading) return <div>Loading...</div>;
+
     return (
         <>
-        {topics.map((t) => (
-        <div key={t._id}
-        className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start hover:border-slate-500">
-            <div>
-                <h2 className="font-bold text-2xl hover:text-red-500">{t.title}</h2>
-                <div className="hover:text-2xl">
-                    {t.description}
-                </div>
-            </div>
-
-            <div className="flex justify-between items- start gap-2">
-                <RemoveBtn id={t._id}/>
-                <Link href={`/editTopic/${t._id}`}>
-                <HiPencilAlt size={24}/>
-                </Link>
-            </div>
-        </div>
-        ))}
+            {topics.length === 0 ? (
+                <p>No topics available.</p>
+            ) : (
+                topics.map((t) => (
+                    <div
+                        key={t._id}
+                        className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start hover:border-slate-500"
+                    >
+                        <div>
+                            <h2 className="font-bold text-2xl hover:text-red-500">
+                                {t.title}
+                            </h2>
+                            <p className="hover:text-2xl">{t.description}</p>
+                        </div>
+                        <div className="flex justify-between items-start gap-2">
+                            <RemoveBtn id={t._id} />
+                            <Link href={`/editTopic/${t._id}`}>
+                                <HiPencilAlt size={24} />
+                            </Link>
+                        </div>
+                    </div>
+                ))
+            )}
         </>
     );
-} // TopicList
+}
+ // TopicList
