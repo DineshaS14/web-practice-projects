@@ -12,6 +12,7 @@ export default function RemoveBtn({id}) {
             });
          //if confirmed for deletion
             if (res.ok) {
+                router.push("/");
                 router.refresh();
             } // if res returns true we refresh the router using useRouter
         }

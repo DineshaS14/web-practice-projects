@@ -16,7 +16,7 @@ export default function AddTopic() {
             return;
         } // if no title and description  while submitting, alerts the user.
         try {
-            const res = await fetch("http://localhost:3000/api/topics", {
+            const res = await fetch(`/api/topics`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
@@ -26,6 +26,7 @@ export default function AddTopic() {
             // if successful adding, we go to the mainpage using Router.
             if (res.ok) {
                 router.push('/');
+                router.refresh();
             } else {
                 throw new Error("Failed To Create A New Topic");
             } // if res is successful, we move to main page where items are loaded again.
