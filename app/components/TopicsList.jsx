@@ -5,7 +5,7 @@ import { HiPencilAlt } from "react-icons/hi";
 // function to pull topics from MongoDB
 const getTopics = async () => {
     try {
-        const res = await fetch("http://localhost:3004/api/topics", {
+        const res = await fetch("http://localhost:3000/api/topics", {
             cache: "no-store",
         });
         if (!res.ok) {
@@ -35,7 +35,7 @@ export default async function TopicList() {
 
             <div className="flex justify-between items- start gap-2">
                 <RemoveBtn id={t._id}/>
-                <Link href={'/editTopic/${t._id}'}>
+                <Link href={`/editTopic/${t._id}`}>
                 <HiPencilAlt size={24}/>
                 </Link>
             </div>
