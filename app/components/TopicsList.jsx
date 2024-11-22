@@ -10,13 +10,17 @@ export default function TopicsList() {
     const fetchTopics = async () => {
       try {
         const res = await fetch('/api/topics');
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
         const data = await res.json();
-        setTopics(data);
+        console.log('Fetched Topics:', data); // Debugging: Check fetched data
+        setTopics(data.topics);
       } catch (error) {
         console.error('Error fetching topics:', error);
       }
     };
-
+  
     fetchTopics();
   }, []);
 
